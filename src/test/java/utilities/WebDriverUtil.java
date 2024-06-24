@@ -2,6 +2,7 @@ package utilities;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class WebDriverUtil {
 
@@ -17,8 +18,12 @@ public class WebDriverUtil {
         return driver;
     }
 
+    // Maximises Chrome window
     private static void initialiseWebDriver() {
         setWebDriverLocation();
+        //ChromeOptions options = new ChromeOptions();
+        //options.addArguments("--remote-allow-origins=*");
+        //options.addArguments("--log-level=3");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }

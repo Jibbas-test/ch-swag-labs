@@ -17,9 +17,25 @@ public class SignInPage {
     @FindBy(id = "user-name")
     public WebElement userNameField;
 
+    @FindBy(id = "password")
+    public WebElement passwordField;
+
+    @FindBy(id = "login-button")
+    public WebElement loginButton;
+
     public boolean userNameFieldIsDisplayed() {
         userNameField.isDisplayed();
         return true;
+    }
+
+    public void setLoginFields(WebElement field,String value) {
+        field.click();
+        field.sendKeys(value);
+    }
+
+    public void clickLoginButton() {
+        loginButton.isDisplayed();
+        loginButton.click();
     }
 
 }

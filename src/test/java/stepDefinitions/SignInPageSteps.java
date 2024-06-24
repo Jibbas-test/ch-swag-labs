@@ -1,13 +1,16 @@
 package stepDefinitions;
 
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import pages.SignInPage;
 import utilities.WebDriverUtil;
-
-import java.io.IOException;
 
 public class SignInPageSteps {
 
@@ -29,12 +32,34 @@ public class SignInPageSteps {
     }
 
     /**
+     * Signs in to Swag Labs as the standard_user.
+     */
+    @When("I sign in as a standard user")
+    public void signInAsStandardUser() {
+        signInPage.setLoginFields(signInPage.userNameField, "standard_user");
+        signInPage.setLoginFields(signInPage.passwordField, "secret_sauce");
+        signInPage.clickLoginButton();
+    }
+
+    /**
      * Logs out of account and closes browser.
      */
     @And("I close browser")
-    public void logoutAndCloseBrowser() throws IOException {
+    public void logoutAndCloseBrowser() throws Exception {
+        //Thread.sleep(2000);
         driver.close();
         driver.quit();
+    }
+
+    /**
+     * Takes screenshot after each failed scenario step.
+     */
+    @AfterStep
+    public void addScreenshot(Scenario scenario) {
+        if(scenario.isFailed()) {
+            final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", "image");
+        }
     }
 
 }
