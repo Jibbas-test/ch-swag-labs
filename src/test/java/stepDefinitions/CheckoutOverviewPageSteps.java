@@ -1,22 +1,22 @@
 package stepDefinitions;
 
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebDriver;
+import pages.CheckoutCompletePage;
 import pages.CheckoutOverviewPage;
-import utilities.WebDriverUtil;
+
+import static org.junit.Assert.assertTrue;
 
 public class CheckoutOverviewPageSteps {
 
-    private WebDriver driver;
-    private CheckoutOverviewPage checkoutOverviewPage;
+    private final CheckoutOverviewPage checkoutOverviewPage;
+    private final CheckoutCompletePage checkoutCompletePage;
 
     public CheckoutOverviewPageSteps() {
-        driver = WebDriverUtil.getWebDriver();
+        WebDriver driver = Hooks.driver;
         checkoutOverviewPage = new CheckoutOverviewPage(driver);
+        checkoutCompletePage = new CheckoutCompletePage(driver);
     }
 
     @And("I click on the finish button")
@@ -26,14 +26,12 @@ public class CheckoutOverviewPageSteps {
     }
 
     /**
-     * Takes screenshot after each failed scenario step.
+     * Clicks Finish and asserts that order completion message is displayed.
      */
-    @AfterStep
-    public void addScreenshot(Scenario scenario) {
-        if(scenario.isFailed()) {
-            final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "image");
-        }
+    @Then("I am able to purchase that item")
+    public void completePurchaseOfItem() throws Exception {
+        checkoutOverviewPage.clickFinishOrderButton();
+        assertTrue(checkoutCompletePage.orderCompleteMessage.getText().contains("THANK YOU FOR YOUR ORDER"));
     }
 
 }

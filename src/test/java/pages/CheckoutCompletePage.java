@@ -17,6 +17,9 @@ public class CheckoutCompletePage {
     @FindBy(css = "#checkout_complete_container > h2")
     public WebElement orderCompleteMessage;
 
+    @FindBy(css = "#checkout_summary_container > div > div.summary_info > div.summary_subtotal_label")
+    public WebElement itemCost;
+
     public boolean orderCompleteMessageIsDisplayed() {
         orderCompleteMessage.isDisplayed();
         return true;

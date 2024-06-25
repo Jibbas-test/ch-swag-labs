@@ -1,24 +1,21 @@
 package stepDefinitions;
 
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import pages.YourInformationPage;
-import utilities.WebDriverUtil;
 
 public class YourInformationPageSteps {
 
-    private WebDriver driver;
-    private YourInformationPage yourInformationPage;
+    private final YourInformationPage yourInformationPage;
 
     public YourInformationPageSteps() {
-        driver = WebDriverUtil.getWebDriver();
+        WebDriver driver = Hooks.driver;
         yourInformationPage = new YourInformationPage(driver);
     }
 
+    /**
+     * Enters first name, last name and postal code.
+     */
     @And("I enter name details")
     public void enterValueInFirstNameField() throws Exception {
         yourInformationPage.setInformationFields(yourInformationPage.firstNameField, "Jamie");
@@ -31,17 +28,6 @@ public class YourInformationPageSteps {
     public void clickContinueButton() throws Exception {
         yourInformationPage.clickContinueButton();
         Thread.sleep(2000);
-    }
-
-    /**
-     * Takes screenshot after each failed scenario step.
-     */
-    @AfterStep
-    public void addScreenshot(Scenario scenario) {
-        if(scenario.isFailed()) {
-            final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "image");
-        }
     }
 
 }
