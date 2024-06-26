@@ -1,10 +1,8 @@
 package stepDefinitions;
 
-
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebDriver;
 import pages.OnesieProductPage;
-import pages.SignInPage;
 
 import static org.junit.Assert.assertTrue;
 
