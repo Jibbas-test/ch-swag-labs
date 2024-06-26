@@ -11,6 +11,8 @@ Please ensure that the following are installed before attempting to clone this r
 
 ## Configuring ChromeDriver
 
+To find the appropriate ChrimeDriver version that matches your installed version of Chrome, please see the following website - https://googlechromelabs.github.io/chrome-for-testing/
+
 To run these tests you will make use of the `````-Dwebdriver.chrome.driver````` property.
 You will need to take note of the path to chromedriver directory on your local machine e.g. `````"C:\Users\<YOUR USERNAME>\.m2\repository\webdriver\chromedriver\win32\125.0.6422.60\chromedriver.exe"`````.
 Set the property `````-Dwebdriver.chrome.driver````` to this .exe path in order to run tests e.g.
